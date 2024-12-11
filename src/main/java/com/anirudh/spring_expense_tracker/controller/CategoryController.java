@@ -31,7 +31,7 @@ public class CategoryController {
     @GetMapping("/api/categories")
     public ResponseEntity<List<CategoryDto>> getAllCategories() {
         List<CategoryDto> categoryListo = categoryService.getAllCategories();
-        return new ResponseEntity<>(categoryListo, HttpStatus.CREATED);
+        return ResponseEntity.ok(categoryListo);
     }
 
     @PutMapping("/api/categories/{id}")
@@ -45,4 +45,6 @@ public class CategoryController {
         categoryService.deleteCategory(id);
         return ResponseEntity.ok("Category deleted successfully");
     }
+
+
 }

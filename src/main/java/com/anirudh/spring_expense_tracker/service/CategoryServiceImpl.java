@@ -2,7 +2,7 @@ package com.anirudh.spring_expense_tracker.service;
 
 import com.anirudh.spring_expense_tracker.dto.CategoryDto;
 import com.anirudh.spring_expense_tracker.entity.Category;
-import com.anirudh.spring_expense_tracker.exception.CategoryException;
+import com.anirudh.spring_expense_tracker.exception.ResourceNotFoundException;
 import com.anirudh.spring_expense_tracker.repository.CategoryRepository;
 import com.anirudh.spring_expense_tracker.utils.CategoryMapper;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto getCategory(String id) {
-        Category category = categoryRepository.findById(id).orElseThrow(() -> new CategoryException("Category not found with id:" + id));
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category not found with id:" + id));
         return CategoryMapper.mapToDto(category);
     }
 
@@ -40,14 +40,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto updateCategory(String id, String name) {
-        Category category = categoryRepository.findById(id).orElseThrow(() -> new CategoryException("Category not found with id:" + id));
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category not found with id:" + id));
         category.setName(name);
         return CategoryMapper.mapToDto(categoryRepository.save(category));
     }
 
     @Override
     public void deleteCategory(String id) {
-        Category category = categoryRepository.findById(id).orElseThrow(() -> new CategoryException("Category not found with id:" + id));
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category not found with id:" + id));
         categoryRepository.delete(category);
     }
 }

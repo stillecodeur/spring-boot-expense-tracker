@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(AppException.class)
-    public ResponseEntity<ErrorDetails> handleCategoryException(AppException appException, WebRequest webRequest) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorDetails> handleResourceNotFoundException(ResourceNotFoundException resourceNotFoundException, WebRequest webRequest) {
         ErrorDetails errorDetails = new ErrorDetails(
                 LocalDateTime.now(),
-                appException.getMessage(),
+                resourceNotFoundException.getMessage(),
                 webRequest.getDescription(false),
                 "RESOURCE_NOT_FOUND"
         );
