@@ -26,6 +26,11 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public ExpenseDto createExpense(ExpenseDto expenseDto) {
         Expense expense = expenseRepository.save(ExpenseMapper.mapToEntity(expenseDto));
+        if (expenseDto.categoryDto() != null) {
+            Category category = categoryRepository.findById(expenseDto.categoryDto().id()).orElseThrow(() -> new ResourceNotFoundException("Category not found with id:"
+                    + expenseDto.categoryDto().id()));
+            expense.setCategory(category);
+        }
         return ExpenseMapper.mapToDto(expense);
     }
 
